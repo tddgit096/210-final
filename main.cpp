@@ -3,7 +3,8 @@
 #include <fstream>
 #include <map>
 
-const string INPUTFILE = "data.txt";
+using namespace std;
+
 /*
 Milestone 1: In this assignment's details page, download and install the text file as your data source for this project. In it, each line contains two airport codes representing a particular flight's origin and destination, for example:
 JFK LAX
@@ -21,17 +22,21 @@ Your driver program should build the map and call the function at least twice wi
 
 Milestone 4: Final polishing, and make sure your driver program exercises all the milestones of this assignment.*/
 
-using namespace std;
 
-void import_file(map <string, int>, string);
+const string INPUTFILE = "data.txt";
+const int ORIGINPLUSDESTSIZE = 2;
+
+void import_file(map <string, int>&, string);
+void print(map <string, int>);
 
 int main(){
     map <string, int> log;
     import_file(log,INPUTFILE);
+    print(log);
     return 0;
 }
 
-void import_file(map <string, int> M, string input){
+void import_file(map <string, int> &M, string input){
     fstream file(input);
     if(file.is_open()){
         string line;
@@ -53,23 +58,17 @@ void import_file(map <string, int> M, string input){
                     dest+=c;
                 }
             }
-            //now we store them in the map. we will use an array to speed up the process utilizing a for loop to write our code without copy-pasting for both origin and dest.
-            string both[2] = {origin,dest};
-
-
-            if(M.find(origin)!=M.end()){ //element not already in map
-                pair<string,int> originPair = {origin,1}; //make pair, traffic value starts at 1
-                M.insert(originPair);
-            }
-            else{
-                M[origin] += 1;
-            }
-            if(M.find(dest)!=M.end()){ //element not already in map
-                pair<string,int> destPair = {dest,1}; //make pair, traffic value starts at 1
-                M.insert(destPair);
-            }
-            else{
-                M[dest] += 1;
+            //now we store them in the map. we will use an array to speed up the process via for loop to write our code without copy-pasting for both origin and dest.
+            //if we ever need to specify dest or origin for input reasons, we can simply use an if statement that will check the following: if i==0; then origin, else if i==1 then destination.
+            string both[ORIGINPLUSDESTSIZE] = {origin,dest};
+            for(int i =0; i<ORIGINPLUSDESTSIZE; i++){
+                if(M.find(both[i])!=M.end()){ //element not already in map
+                    pair<string,int> Pair = {both[i],1}; //make pair, traffic value starts at 1
+                    M.insert(Pair);
+                }
+                else{
+                    M[both[i]] += 1;
+                }
             }
         }
         file.close();
@@ -77,5 +76,12 @@ void import_file(map <string, int> M, string input){
     else{
         cout<<"Input file not found. Aborting.\n";
         return;
+    }
+}
+
+void print(map <string, int>M){
+    cout<<"All airport traffic counts: \n";
+    for(auto it : M){
+        cout<<it.first<<" "<<it.second;
     }
 }
