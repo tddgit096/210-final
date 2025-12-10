@@ -5,7 +5,6 @@
 #include <list>
 
 using namespace std;
-//Milestone 4: Final polishing, and make sure your driver program exercises all the milestones of this assignment.
 
 const string INPUTFILE = "data.txt", BAR = "====================================\n";
 const int ORIGINPLUSDESTSIZE = 2;
