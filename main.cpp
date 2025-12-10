@@ -7,27 +7,30 @@
 using namespace std;
 
 /*
-Milestone 2: Add code that finds the highest traffic count to represent the busiest airport. Print all airports that have this maximum count (in other words, handle ties).
-Your driver program should build the map, print all counts, and then print the busiest airport(s) and their count. 
-
 Milestone 3: Add a function that prints only airports whose traffic counts fall within a specified inclusive range [low, high].
 Your driver program should build the map and call the function at least twice with different ranges, clearly showing which airports fall in each range. Do not code user input. 
 
 Milestone 4: Final polishing, and make sure your driver program exercises all the milestones of this assignment.*/
 
 
-const string INPUTFILE = "data.txt";
+const string INPUTFILE = "data.txt", BAR = "====================================\n";
 const int ORIGINPLUSDESTSIZE = 2;
+//testing consts
+const int LOWRANGE1 = 3,LOWRANGE2 = 14, HIGHRANGE1 = 15, HIGHRANGE2 = 40;
 
 void import_file(map <string, int>&, string);
 void print(map <string, int>);
 void print_highest_traffic(map <string, int>);
+void print_within_range(map <string, int>, int,int);
 
 int main(){
     map <string, int> log;
     import_file(log,INPUTFILE);
     print(log);
-    print_highest_traffic(log);
+    cout<<BAR;
+    print_highest_traffic(log,);
+    print_within_range(log, LOWRANGE1,HIGHRANGE1);
+    print_within_range(log, LOWRANGE2,HIGHRANGE2);
     return 0;
 }
 
@@ -77,4 +80,17 @@ void print_highest_traffic(map <string, int> M){
     for(auto it : busiest){
         cout<<it.first<<" "<<it.second<<endl;
     }
+}
+
+void print_within_range(map <string, int>M, int low,int high){
+    cout<<"Airports within traffic ranges: "<<low<< " - " <<high <<endl;
+    list<pair<string,int>> range;
+    for()
+
+
+
+    for(auto it : range){
+        cout<<it.first<<" "<<it.second<<endl;
+    }
+
 }
