@@ -6,13 +6,6 @@
 using namespace std;
 
 /*
-Milestone 1: In this assignment's details page, download and install the text file as your data source for this project. In it, each line contains two airport codes representing a particular flight's origin and destination, for example:
-JFK LAX
-ORD DEN
-LAX SFO
-
-Create an std::map<std::string, int> that maps an airport code to its traffic count. Read the file, and for each flight, insert origin and destination airports into the map if they do not exist yet; and increment each airport’s count once.
-Your driver program should build the map from the file and print all airports and their counts in the natural sorted order of the map. 
 
 Milestone 2: Add code that finds the highest traffic count to represent the busiest airport. Print all airports that have this maximum count (in other words, handle ties).
 Your driver program should build the map, print all counts, and then print the busiest airport(s) and their count. 
@@ -39,36 +32,14 @@ int main(){
 void import_file(map <string, int> &M, string input){
     fstream file(input);
     if(file.is_open()){
-        string line;
-        while(getline(file,line)){
-            string dest;
-            string origin;
-            //parse the string to store dest and origin
-            bool first = true;
-            for (char c : line) {   //range based loop for all characters in the line. a space (' ') char is our delimeter
-                if(c==' '){
-                    if(!first) //we've reached the end
-                        break;
-                    first=false; //otherwise, we move onto dest
-                }
-                if(first){
-                    origin += c;
-                }
-                else{
-                    dest+=c;
-                }
+        string token;
+        while(file>>token){ //read until whitespace
+            if(M.find(token)==M.end()){ //element not already in map
+                pair<string,int> Pair = {token,1}; //make pair, traffic value starts at 1
+                M.insert(Pair);
             }
-            //now we store them in the map. we will use an array to speed up the process via for loop to write our code without copy-pasting for both origin and dest.
-            //if we ever need to specify dest or origin for input reasons, we can simply use an if statement that will check the following: if i==0; then origin, else if i==1 then destination.
-            string both[ORIGINPLUSDESTSIZE] = {origin,dest};
-            for(int i =0; i<ORIGINPLUSDESTSIZE; i++){
-                if(M.find(both[i])==M.end()){ //element not already in map
-                    pair<string,int> Pair = {both[i],1}; //make pair, traffic value starts at 1
-                    M.insert(Pair);
-                }
-                else{
-                    M[both[i]] += 1;
-                }
+            else{   //element already in map
+                M[token] += 1; //bump it up 1
             }
         }
         file.close();
