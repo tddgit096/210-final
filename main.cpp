@@ -27,6 +27,7 @@ int main(){
     map <string, int> log;
     import_file(log,INPUTFILE);
     print(log);
+    print_highest_traffic(log);
     return 0;
 }
 
@@ -66,7 +67,6 @@ void print_highest_traffic(map <string, int> M){
         if(it.second>max){ //clear the list and hold this as our new max. ties get added below.
             max = it.second;
             busiest.clear();
-            //pair<string,int> temp = it;
             busiest.push_back(it);
         }
         else if(it.second == max){ //ties get added here.
