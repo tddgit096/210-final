@@ -49,7 +49,7 @@ void import_file(map <string, int> &M, string input){
                 if(c==' '){
                     if(!first) //we've reached the end
                         break;
-                    first==false; //otherwise, we move onto dest
+                    first=false; //otherwise, we move onto dest
                 }
                 if(first){
                     origin += c;
@@ -62,7 +62,7 @@ void import_file(map <string, int> &M, string input){
             //if we ever need to specify dest or origin for input reasons, we can simply use an if statement that will check the following: if i==0; then origin, else if i==1 then destination.
             string both[ORIGINPLUSDESTSIZE] = {origin,dest};
             for(int i =0; i<ORIGINPLUSDESTSIZE; i++){
-                if(M.find(both[i])!=M.end()){ //element not already in map
+                if(M.find(both[i])==M.end()){ //element not already in map
                     pair<string,int> Pair = {both[i],1}; //make pair, traffic value starts at 1
                     M.insert(Pair);
                 }
@@ -82,6 +82,6 @@ void import_file(map <string, int> &M, string input){
 void print(map <string, int>M){
     cout<<"All airport traffic counts: \n";
     for(auto it : M){
-        cout<<it.first<<" "<<it.second;
+        cout<<it.first<<" "<<it.second<<endl;
     }
 }
