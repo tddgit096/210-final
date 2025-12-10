@@ -39,10 +39,25 @@ void import_file(map <string, int> M, string input){
             string dest;
             string origin;
             //parse the string to store dest and origin
-            getline(line, dest," ");
+            bool first = true;
+            for (char c : line) {   //range based loop for all characters in the line. a space (' ') char is our delimeter
+                if(c==' '){
+                    if(!first) //we've reached the end
+                        break;
+                    first==false; //otherwise, we move onto dest
+                }
+                if(first){
+                    origin += c;
+                }
+                else{
+                    dest+=c;
+                }
+            }
+            //now we store them in the map
+            if(M.find(dest)!=M.end()){ //element not already in map
+                M.insert();
+            }
 
-
-            
         }
     file.close();
     }
