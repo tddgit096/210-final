@@ -8,7 +8,7 @@ using namespace std;
 
 const string INPUTFILE = "data.txt", BAR = "====================================\n";
 const int ORIGINPLUSDESTSIZE = 2;
-//Range testing Consts.
+
 const int LOWRANGE1 = 3,LOWRANGE2 = 14, HIGHRANGE1 = 15, HIGHRANGE2 = 40;
 
 void import_file(map <string, int>&, string);
@@ -33,13 +33,13 @@ void import_file(map <string, int> &M, string input){
     fstream file(input);
     if(file.is_open()){
         string token;
-        while(file>>token){ //read until whitespace
-            if(M.find(token)==M.end()){ //element not already in map
-                pair<string,int> Pair = {token,1}; //make pair, traffic value starts at 1
+        while(file>>token){
+            if(M.find(token)==M.end()){ 
+                pair<string,int> Pair = {token,1};
                 M.insert(Pair);
             }
-            else{   //element already in map
-                M[token] += 1; //bump it up by 1
+            else{
+                M[token] += 1;
             }
         }
         file.close();
@@ -59,19 +59,18 @@ void print(map <string, int>M){
 
 void print_highest_traffic(map <string, int> M){
     cout<<"Busiest Airports: \n";
-    list<pair<string,int>> busiest;     //list of busiest airports.
+    list<pair<string,int>> busiest;
     int max = 0;
     for(auto it: M){
-        if(it.second>max){ //clear the list and hold this as our new max. ties get added at else if below.
+        if(it.second>max){
             max = it.second;
             busiest.clear();
             busiest.push_back(it);
         }
-        else if(it.second == max){ //ties get added here.
+        else if(it.second == max){
             busiest.push_back(it);
         }
     }
-    //now print the list
     for(auto it : busiest){
         cout<<it.first<<" "<<it.second<<endl;
     }
@@ -85,7 +84,6 @@ void print_within_range(map <string, int>M, int low,int high){
             range.push_back(it);
         }
     }
-    //print the range
     for(auto it : range){
         cout<<it.first<<" "<<it.second<<endl;
     }
