@@ -5,17 +5,11 @@
 #include <list>
 
 using namespace std;
-
-/*
-Milestone 3: Add a function that prints only airports whose traffic counts fall within a specified inclusive range [low, high].
-Your driver program should build the map and call the function at least twice with different ranges, clearly showing which airports fall in each range. Do not code user input. 
-
-Milestone 4: Final polishing, and make sure your driver program exercises all the milestones of this assignment.*/
-
+//Milestone 4: Final polishing, and make sure your driver program exercises all the milestones of this assignment.
 
 const string INPUTFILE = "data.txt", BAR = "====================================\n";
 const int ORIGINPLUSDESTSIZE = 2;
-//testing consts
+//Range testing Consts.
 const int LOWRANGE1 = 3,LOWRANGE2 = 14, HIGHRANGE1 = 15, HIGHRANGE2 = 40;
 
 void import_file(map <string, int>&, string);
@@ -28,8 +22,10 @@ int main(){
     import_file(log,INPUTFILE);
     print(log);
     cout<<BAR;
-    print_highest_traffic(log,);
+    print_highest_traffic(log);
+    cout<<BAR;
     print_within_range(log, LOWRANGE1,HIGHRANGE1);
+    cout<<endl;
     print_within_range(log, LOWRANGE2,HIGHRANGE2);
     return 0;
 }
@@ -44,7 +40,7 @@ void import_file(map <string, int> &M, string input){
                 M.insert(Pair);
             }
             else{   //element already in map
-                M[token] += 1; //bump it up 1
+                M[token] += 1; //bump it up by 1
             }
         }
         file.close();
@@ -67,7 +63,7 @@ void print_highest_traffic(map <string, int> M){
     list<pair<string,int>> busiest;     //list of busiest airports.
     int max = 0;
     for(auto it: M){
-        if(it.second>max){ //clear the list and hold this as our new max. ties get added below.
+        if(it.second>max){ //clear the list and hold this as our new max. ties get added at else if below.
             max = it.second;
             busiest.clear();
             busiest.push_back(it);
@@ -85,12 +81,13 @@ void print_highest_traffic(map <string, int> M){
 void print_within_range(map <string, int>M, int low,int high){
     cout<<"Airports within traffic ranges: "<<low<< " - " <<high <<endl;
     list<pair<string,int>> range;
-    for()
-
-
-
+    for(auto it : M){
+        if(it.second>=low && it.second<=high){
+            range.push_back(it);
+        }
+    }
+    //print the range
     for(auto it : range){
         cout<<it.first<<" "<<it.second<<endl;
     }
-
 }
