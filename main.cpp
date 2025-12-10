@@ -1,7 +1,9 @@
 // Final Exam I | Toma Dimov | COMSC210
 #include <iostream>
+#include <fstream>
+#include <map>
 
-//std:: map
+const string INPUTFILE = "data.txt";
 /*
 Milestone 1: In this assignment's details page, download and install the text file as your data source for this project. In it, each line contains two airport codes representing a particular flight's origin and destination, for example:
 JFK LAX
@@ -21,8 +23,31 @@ Milestone 4: Final polishing, and make sure your driver program exercises all th
 
 using namespace std;
 
+void import_file(map <string, int>, string);
+
 int main(){
-
-
+    map <string, int> log;
+    import_file(log,INPUTFILE);
     return 0;
+}
+
+void import_file(map <string, int> M, string input){
+    fstream file(input);
+    if(file.is_open()){
+        string line;
+        while(getline(file,line)){
+            string dest;
+            string origin;
+            //parse the string to store dest and origin
+            getline(line, dest," ");
+
+
+            
+        }
+    file.close();
+    }
+    else{
+        cout<<"Input file not found. Aborting.\n";
+        return;
+    }
 }
