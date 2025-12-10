@@ -2,11 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <list>
 
 using namespace std;
 
 /*
-
 Milestone 2: Add code that finds the highest traffic count to represent the busiest airport. Print all airports that have this maximum count (in other words, handle ties).
 Your driver program should build the map, print all counts, and then print the busiest airport(s) and their count. 
 
@@ -21,6 +21,7 @@ const int ORIGINPLUSDESTSIZE = 2;
 
 void import_file(map <string, int>&, string);
 void print(map <string, int>);
+void print_highest_traffic(map <string, int>);
 
 int main(){
     map <string, int> log;
@@ -53,6 +54,27 @@ void import_file(map <string, int> &M, string input){
 void print(map <string, int>M){
     cout<<"All airport traffic counts: \n";
     for(auto it : M){
+        cout<<it.first<<" "<<it.second<<endl;
+    }
+}
+
+void print_highest_traffic(map <string, int> M){
+    cout<<"Busiest Airports: \n";
+    list<pair<string,int>> busiest;     //list of busiest airports.
+    int max = 0;
+    for(auto it: M){
+        if(it.second>max){ //clear the list and hold this as our new max. ties get added below.
+            max = it.second;
+            busiest.clear();
+            //pair<string,int> temp = it;
+            busiest.push_back(it);
+        }
+        else if(it.second == max){ //ties get added here.
+            busiest.push_back(it);
+        }
+    }
+    //now print the list
+    for(auto it : busiest){
         cout<<it.first<<" "<<it.second<<endl;
     }
 }
