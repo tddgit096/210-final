@@ -53,13 +53,26 @@ void import_file(map <string, int> M, string input){
                     dest+=c;
                 }
             }
-            //now we store them in the map
-            if(M.find(dest)!=M.end()){ //element not already in map
-                M.insert();
-            }
+            //now we store them in the map. we will use an array to speed up the process utilizing a for loop to write our code without copy-pasting for both origin and dest.
+            string both[2] = {origin,dest};
 
+
+            if(M.find(origin)!=M.end()){ //element not already in map
+                pair<string,int> originPair = {origin,1}; //make pair, traffic value starts at 1
+                M.insert(originPair);
+            }
+            else{
+                M[origin] += 1;
+            }
+            if(M.find(dest)!=M.end()){ //element not already in map
+                pair<string,int> destPair = {dest,1}; //make pair, traffic value starts at 1
+                M.insert(destPair);
+            }
+            else{
+                M[dest] += 1;
+            }
         }
-    file.close();
+        file.close();
     }
     else{
         cout<<"Input file not found. Aborting.\n";
